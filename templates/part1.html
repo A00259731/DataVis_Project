@@ -1,0 +1,11 @@
+
+{% extends 'partials/layout.html' %}
+
+{% block content  %}
+{% for tweet in query %}
+    <div>
+        {{ tweet }}
+    </div>
+<hr/>
+{% endfor %}
+{% endblock %}

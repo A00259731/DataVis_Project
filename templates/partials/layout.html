@@ -9,14 +9,16 @@
     <div class="jumbotron text-center" style="background-color: #013766">
         <div class="row">
             <div class="col-sm2 center"></div>
-            <div class="col-sm-4 center"><h1>Project Name</h1></div>
-            <div class="col-sm-4 center"><img src ="{{ url_for('static', filename='images/Lays-Logo.png') }}" height="150px"></div>
+            <div class="col-sm-4 center"><h1>Final Fantasy XIV Expansion Thoughts</h1></div>
+            <div class="col-sm-4 center"><img src ="{{ url_for('static', filename='images/header.png') }}" height="150px"></div>
             <div class="col-sm2 center"></div>
         </div>
     </div>
     {% include 'partials/navigation.html' %}
     {% block content %}
     {% endblock %}
+
+
 
 </body>
 </html>
