@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 
 import tweepy as tp
-import textblob as tb
+from textblob import TextBlob
 import vader as vr;
 
 from twitter_auth import *
@@ -26,30 +26,31 @@ def part1():
     query = 'trump'
     tweets = tp.Cursor(api.search, q=query).items(10)
 
-    #positive = 0;
-    #negative = 0;
-    #netural = 0;
-    #polarity = 0;
+    positive = 0
+    negative = 0
+    neutral = 0
+    polarity = 0
 
-    #for tweet in tweets:
-    #    analysis = tb(tweet.text)
-    #    polarity += analysis.sentiment.polarity
+    for tweet in tweets:
+        print(tweet.text)
+        analysis = TextBlob(tweet.text)
+        polarity += analysis.sentiment.polarity
 
-    #    if(analysis.sentiment.polarity == 0):
-    #        netural += 1
-    #    elif(analysis.sentiment.polarity < 0):
-    #        negative += 1
-    #    elif(analysis.sentiment.polarity > 0):
-    #        positive += 1
-    #positive = percentage(positive, 100)
-    #negative = percentage(negative, 100)
-    #neutral = percentage(positive, 100)
+        if (analysis.sentiment.polarity == 0):
+            neutral += 1
+        elif (analysis.sentiment.polarity < 0.00):
+            negative += 1
+        elif (analysis.sentiment.polarity > 0.00):
+            positive += 1
 
-    #positive = format(positive, '.2f')
-    #neutral = format(neutral, '.2f')
-    #negative = format(negative, '.2f')
+    positive = str(percentage(positive, 10))
+    print(positive)
+    negative = str(percentage(positive, 10))
+    print(negative)
+    neutral = str(percentage(positive, 10))
+    print(neutral)
 
-    return render_template('part1.html', query=tweets)
+    return render_template('part1.html', pos_result = positive, neg_result = negative, neu_result = neutral, query = tweets)
 
     return render_template('404.html')
 
@@ -70,5 +71,5 @@ def tweetspage():  # put application's code here
 if __name__ == '__main__':
     app.run()
 
-#def percentage(part, whole):
-    #return 100 * float(part)/float(whole)
+def percentage(part, whole):
+    return 100 * float(part)/float(whole)
