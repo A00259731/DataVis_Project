@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 import tweepy as tp
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import pandas as pd
 
 from twitter_auth import *
 
@@ -26,25 +27,35 @@ def aboutpage():
 
 @app.route('/part1', methods=['POST'])
 def part1():
-    query = 'trump'
+    query = 'Budget2022'
     tweets = tp.Cursor(api.search, q=query).items(50)
 
     positive = 0
     negative = 0
     neutral = 0
     polarity = 0
+    tweet_list = []
 
     for tweet in tweets:
         #print(tweet.text)
         analysis = TextBlob(tweet.text)
         polarity += analysis.sentiment.polarity
 
+        sentiment = TextBlob(tweet.text).sentiment.polarity
+
         if (analysis.sentiment.polarity == 0):
             neutral += 1
+            sentiment = "neu"
         elif (analysis.sentiment.polarity < 0.00):
             negative += 1
+            sentiment = "neg"
         elif (analysis.sentiment.polarity > 0.00):
             positive += 1
+            sentiment = "pos"
+
+        tweet_list.append((tweet.text,sentiment))
+
+    df = pd.DataFrame(tweet_list)
 
     positive = str(percentage(positive, 10))
     #print(positive)
@@ -53,13 +64,15 @@ def part1():
     neutral = str(percentage(neutral, 10))
     #print(neutral)
 
+    df.to_csv("output.csv", sep=",")
+
     return render_template('part1.html', pos_result = positive, neg_result = negative, neu_result = neutral, query = tweets)
 
     return render_template('404.html')
 
 @app.route('/part2', methods=['POST'])
 def part2():
-    query="trump"
+    query="Budget2022"
 
     tweets = tp.Cursor(api.search, q=query).items(50)
 
@@ -67,9 +80,11 @@ def part2():
     negative = 0
     neutral = 0
     polarity = 0
+    tweet_list = []
 
     for tweet in tweets:
         score = SentimentIntensityAnalyzer().polarity_scores(tweet.text)
+        loc = tweet.location
         neg = score['neg']
         neu = score['neu']
         pos = score['pos']
