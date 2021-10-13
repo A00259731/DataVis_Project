@@ -84,7 +84,6 @@ def part2():
 
     for tweet in tweets:
         score = SentimentIntensityAnalyzer().polarity_scores(tweet.text)
-        loc = tweet.location
         neg = score['neg']
         neu = score['neu']
         pos = score['pos']
