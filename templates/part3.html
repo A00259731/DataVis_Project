@@ -1,0 +1,135 @@
+{% extends 'partials/layout.html' %}
+
+{% block content  %}
+{% for tweet in query %}
+    <div>
+        {{ tweet }}
+    </div>
+<hr/>
+    {% endfor %}
+    <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
+      <script language = "JavaScript">
+        Highcharts.chart('container', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: "How are people reacting to Ireland's Budget for 2022?"
+        },
+            subtitle: {
+        text: 'Click the slices to view tweet information.</a>'
+        },
+        accessibility: {
+            announceNewData: {
+                enabled: true
+            },
+            point: {
+                valueSuffix: '%'
+            }
+        },
+
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y:.1f}%'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+        },
+
+        series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'Positive',
+                    y: {{ pos_result }},
+                    drilldown: "Positive"
+                }, {
+                    name: 'Negative',
+                    y: {{ neg_result }},
+                    drilldown: "Negative"
+                }, {
+                    name: 'Neutral',
+                    y: {{ neu_result }},
+                    drilldown: "Neutral"
+                }]
+            }
+        ],
+        drilldown: {
+            series: [
+                {
+                    name: "Positive",
+                    id: "Positive",
+                    data: [
+                        [
+                            "Android",
+                            {{ pos_c_a }}
+                        ],
+                        [
+                            "iPhone",
+                            {{ pos_c_ip }}
+                        ],
+                        [
+                            "Web",
+                            {{ pos_c_w }}
+                        ],
+                        [
+                            "Other",
+                            {{ pos_c_o }}
+                        ]
+                    ]
+                },
+                {
+                    name: "Neutral",
+                    id: "Neutral",
+                    data: [
+                        [
+                            "Android",
+                            {{ neu_c_a }}
+                        ],
+                        [
+                            "iPhone",
+                            {{ neu_c_ip }}
+                        ],
+                        [
+                            "Web",
+                            {{ neu_c_w }}
+                        ],
+                        [
+                            "Other",
+                            {{ neu_c_o }}
+                        ]
+                    ]
+                },
+                {
+                    name: "Negative",
+                    id: "Negative",
+                    data: [
+                        [
+                            "Android",
+                            {{ neg_c_a }}
+                        ],
+                        [
+                            "iPhone",
+                            {{ neg_c_ip }}
+                        ],
+                        [
+                            "Web",
+                            {{ neg_c_w }}
+                        ],
+                        [
+                            "Other",
+                            {{ neg_c_o }}
+                        ]
+                    ]
+                }
+            ]
+        }
+    });
+</script>
+{% endblock %}

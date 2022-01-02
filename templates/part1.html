@@ -10,121 +10,48 @@
     {% endfor %}
  <div id = "container" style = "width: 550px; height: 400px; margin: 0 auto"></div>
       <script language = "JavaScript">
-    Highcharts.chart('container', {
-        chart: {
-            type: 'pie'
-        },
-        title: {
-            text: 'Browser market shares. January, 2018'
-        },
-        subtitle: {
-            text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-        },
-
-        accessibility: {
-            announceNewData: {
-                enabled: true
-            },
-            point: {
-                valueSuffix: '%'
-            }
-        },
-
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-                }
-            }
-        },
-
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b> of total<br/>'
-        },
-
-        series: [
-            {
-                name: "Brands",
-                colorByPoint: true,
-                data: [
-                    {
-                        name: "Positive",
-                        y: {{ pos_result }},
-                        drilldown: "Positive"
-                    },
-                    {
-                        name: "Neutral",
-                        y: {{ neu_result }},
-                        drilldown: "Neutral"
-                    },
-                    {
-                        name: "Negative",
-                        y: {{ neg_result }},
-                        drilldown: "Negative"
-                    }
-                ]
-            }
-        ],
-        drilldown: {
-            series: [
-                {
-                    name: "Positive",
-                    id: "Positive",
-                    data: [
-                        [
-                            "Number of users who were positive",
-                            0.1
-                        ],
-                        [
-                            "Numbers",
-                            1.3
-                        ],
-                        [
-                            "v29.0",
-                            0.26
-                        ]
-                    ]
-                },
-                {
-                    name: "Neutral",
-                    id: "Neutral",
-                    data: [
-                        [
-                            "v58.0",
-                            1.02
-                        ],
-                        [
-                            "v57.0",
-                            7.36
-                        ],
-                        [
-                            "v56.0",
-                            0.35
-                        ]
-                    ]
-                },
-                {
-                    name: "Negative",
-                    id: "Negative",
-                    data: [
-                        [
-                            "v11.0",
-                            6.2
-                        ],
-                        [
-                            "v10.0",
-                            0.29
-                        ],
-                        [
-                            "v9.0",
-                            0.27
-                        ]
-                    ]
-                }
-            ]
+   Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: "How are people reacting to Ireland's Budget for 2022?"
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
         }
-    });
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data:[{
+            name: 'Positive',
+            y: {{ pos_result }}
+        }, {
+            name: 'Negative',
+            y: {{ neg_result }}
+        }, {
+            name: 'Neutral',
+            y: {{ neu_result }}
+        }]
+    }]
+});
     </script>
 {% endblock %}

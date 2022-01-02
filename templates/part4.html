@@ -1,0 +1,276 @@
+{% extends 'partials/layout.html' %}
+
+{% block content  %}
+{% for tweet in query %}
+    <div>
+        {{ tweet }}
+    </div>
+<hr/>
+    {% endfor %}
+
+    <div class="row">
+            <div class="row w3-row" style="background-color:#aaa;">
+                <div id="container" style="width: 100%; height: 100%; margin: 0 auto"></div>
+            </div>
+
+            <div class="column w3-half" style="background-color:#aaa;">
+                <div id="topic1" style="width: 100%; height: 100%; margin: 0 auto"></div>
+                      <script language = "JavaScript">
+                        Highcharts.chart('topic1', {
+                        chart: {
+                            type: 'pie'
+                        },
+                        title: {
+                            text: '{{ topic1 }}'
+                        },
+                            subtitle: {
+                        text: 'Click the slices to view tweet information.</a>'
+                        },
+                        accessibility: {
+                            announceNewData: {
+                                enabled: true
+                            },
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+
+                        plotOptions: {
+                            series: {
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}: {point.y:.1f}%'
+                                }
+                            }
+                        },
+
+                        tooltip: {
+                            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                        },
+
+                        series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Positive',
+                                    y: {{ pos_result1 }},
+                                    drilldown: "Positive"
+                                }, {
+                                    name: 'Negative',
+                                    y: {{ neg_result1 }},
+                                    drilldown: "Negative"
+                                }, {
+                                    name: 'Neutral',
+                                    y: {{ neu_result1 }},
+                                    drilldown: "Neutral"
+                                }]
+                            }
+                        ],
+                        drilldown: {
+                            series: [
+                                {
+                                    name: "Positive",
+                                    id: "Positive",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ pos_c_a1 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ pos_c_ip1 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ pos_c_w1 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ pos_c_o1 }}
+                                        ]
+                                    ]
+                                },
+                                {
+                                    name: "Neutral",
+                                    id: "Neutral",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ neu_c_a1 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ neu_c_ip1 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ neu_c_w1 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ neu_c_o1 }}
+                                        ]
+                                    ]
+                                },
+                                {
+                                    name: "Negative",
+                                    id: "Negative",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ neg_c_a1 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ neg_c_ip1 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ neg_c_w1 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ neg_c_o1 }}
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    });
+                </script>
+            </div>
+            <div class="column w3-half" style="background-color:#bbb;">
+                <div id="topic2" style="width: 100%; height: 100%; margin: 0 auto"></div>
+                      <script language = "JavaScript">
+                        Highcharts.chart('topic2', {
+                        chart: {
+                            type: 'pie'
+                        },
+                        title: {
+                            text: '{{ topic2 }}'
+                        },
+
+                        accessibility: {
+                            announceNewData: {
+                                enabled: true
+                            },
+                            point: {
+                                valueSuffix: '%'
+                            }
+                        },
+
+                        plotOptions: {
+                            series: {
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.name}: {point.y:.1f}%'
+                                }
+                            }
+                        },
+
+                        tooltip: {
+                            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                        },
+
+                        series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                    name: 'Positive',
+                                    y: {{ pos_result2 }},
+                                    drilldown: "Positive"
+                                }, {
+                                    name: 'Negative',
+                                    y: {{ neg_result2 }},
+                                    drilldown: "Negative"
+                                }, {
+                                    name: 'Neutral',
+                                    y: {{ neu_result2 }},
+                                    drilldown: "Neutral"
+                                }]
+                            }
+                        ],
+                        drilldown: {
+                            series: [
+                                {
+                                    name: "Positive",
+                                    id: "Positive",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ pos_c_a2 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ pos_c_ip2 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ pos_c_w2 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ pos_c_o2 }}
+                                        ]
+                                    ]
+                                },
+                                {
+                                    name: "Neutral",
+                                    id: "Neutral",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ neu_c_a2 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ neu_c_ip2 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ neu_c_w2 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ neu_c_o2 }}
+                                        ]
+                                    ]
+                                },
+                                {
+                                    name: "Negative",
+                                    id: "Negative",
+                                    data: [
+                                        [
+                                            "Android",
+                                            {{ neg_c_a2 }}
+                                        ],
+                                        [
+                                            "iPhone",
+                                            {{ neg_c_ip2 }}
+                                        ],
+                                        [
+                                            "Web",
+                                            {{ neg_c_w2 }}
+                                        ],
+                                        [
+                                            "Other",
+                                            {{ neg_c_o2 }}
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    });
+                </script>
+            </div>
+    </div>
+
+        <form method="post" action="/part4.">
+      <label for="tweet">Please enter your chosen topics:</label><br>
+      <input type="text" id="topic1" name="topic1" required><br>
+        <input type="text" id="topic2" name="topic2" required><br>
+      <input type="submit" value="Submit">
+    </form>
+{% endblock %}
